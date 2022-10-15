@@ -20,9 +20,9 @@ function! db#adapter#mongodb#interactive(url) abort
   let params = url.params
   if url.scheme !=# 'mongodb' || has_key(url, 'opaque') ||
         \ len(filter(keys(params), 'v:val !~# "^tls$\\|^ssl$\\|^authSource$"'))
-    return ['mongo', a:url]
+    return ['mongosh', a:url]
   endif
-  return ['mongo'] +
+  return ['mongosh'] +
         \ (get(params, 'tls') =~# '^[1tT]' ? ['--tls'] : []) +
         \ (get(params, 'ssl') =~# '^[1tT]' ? ['--ssl'] : []) +
         \ (has_key(params, 'authSource') ? ['--authenticationDatabase', params['authSource']] : []) +
